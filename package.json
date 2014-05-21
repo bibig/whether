@@ -1,0 +1,30 @@
+{
+  "name": "whether",
+  "version": "0.0.1",
+  "description": "identify file type by file magic numbers.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/whether"
+  },
+  "keywords": [
+    "identify",
+    "file",
+    "type",
+    "magic",
+    "number"
+  ],
+  "dependencies": {
+    "yi"   : ">= 0.0.6",
+    "myna" : "^0.1.0"
+  },
+  "devDependencies": {
+    "mocha"  : "*",
+    "should" : "*"
+  },
+  "author": "bibig@me.com",
+  "license": "MIT"
+}
