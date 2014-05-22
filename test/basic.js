@@ -62,17 +62,53 @@ describe('test whether instance', function () {
     whether(path.join(imagePath, 'sample.jpg')).is('jpg').should.be.true;
   });  
 
-  it('isMatched', function (done) {
-    whether(path.join(imagePath, 'sample.png')).isMatched(function (e, result) {
+  it('isValid', function (done) {
+    whether(path.join(imagePath, 'sample.png')).isValid(function (e, result) {
       should.not.exist(e);
       should(result).be.true;
       done();
     });
   });
 
-  it('isMatched in sync', function () {
-    whether(path.join(imagePath, 'sample.jpg')).isMatched().should.be.true;
-    whether(path.join(imagePath, 'sample.png')).isIdentical().should.be.true;
+  it('isValid in sync', function () {
+    whether(path.join(imagePath, 'sample.jpg')).isValid().should.be.true;
+    whether(path.join(imagePath, 'sample.png')).isValid().should.be.true;
   });
+
+});
+
+describe('test errors', function () {
+
+  var whether = Whether.create({
+    defs: {
+      isSomething: ['jpg', 'png', 'none-exist']  
+    }
+  });
+
+  it('test use none defined exts', function () {
+
+    (function () {
+      whether(path.join(imagePath, 'sample.png')).is('none-exist');
+    }).should.throw(/no magic numbers settings for/);
+
+    (function () {
+      whether(path.join(imagePath, 'sample.ext1')).isMatched();
+    }).should.throw(/no magic numbers settings for/);
+
+    (function () {
+      whether(path.join(imagePath, 'sample.ext1')).isSomething();
+    }).should.throw(/no magic numbers settings for/);
+
+  });
+
+  it('test use no ext file in isMatched', function () {
+
+    (function () {
+      whether(path.join(imagePath, 'sample')).isMatched();
+    }).should.throw(/should have ext part/);
+
+  });
+
+
 
 });

@@ -24,11 +24,12 @@ function identify (file, mn, callback) {
 function create (settings) {
   var config = yi.merge(require('../config'), settings);
   var whether = {
-    config      : config,
-    is          : is,
-    isMatched   : isMatched,
-    isIdentical : isMatched,
-    use         : use,
+    config    : config,
+    checkExt  : checkExt,
+    is        : is,
+    isMatched : isMatched,
+    isValid   : isMatched,
+    use       : use
   };
 
   yi.forEach(config.defs, function (name, exts) {
@@ -67,8 +68,12 @@ function use (name, callback) {
   }
 
   exts.forEach(function (name) {
-    var magic = utils.safeMagicNumber(self.config.exts[name]);
-    var length = magic.length;
+    var magic, length;
+
+    if (! self.checkExt(name, callback)) { return ;}
+
+    magic = utils.safeMagicNumber(self.config.exts[name]);
+    length = magic.length;
 
     if (length > maxLength) { maxLength = length; }
 
@@ -87,18 +92,11 @@ function use (name, callback) {
 }
 
 function is (ext, callback) {
-  var mn = this.config.exts[ext];
-  var e;
+  var mn;
 
-  if ( ! mn ) {
-    e = myna.speak(100, ext);
-    
-    if (callback) {
-      return callback(e);
-    } else {
-      throw e;
-    }
-  }
+  if (! this.checkExt(ext, callback)) { return ;}
+
+  mn = this.config.exts[ext];
 
   if (callback) {
     identify(this.file, mn, callback);
@@ -123,4 +121,22 @@ function isMatched (callback) {
   }
 
   return this.is(info[info.length - 1], callback);
+}
+
+function checkExt (ext, callback) {
+  var mn = this.config.exts[ext];
+  var e;
+
+  if ( ! mn ) {
+    e = myna.speak(100, ext);
+    
+    if (callback) {
+      callback(e);
+      return false;
+    } else {
+      throw e;
+    }
+  }
+
+  return true;
 }
