@@ -25,11 +25,11 @@ describe('using Whether class methods', function (done) {
   });
 
   it('identify png in sync way', function () {
-    Whether.identifySync(path.join(imagePath, 'sample.png'), map.png).should.be.true;
+    Whether.identify(path.join(imagePath, 'sample.png'), map.png).should.be.true;
   });
 
   it('identify jpg in sync way', function () {
-    Whether.identifySync(path.join(imagePath, 'sample.jpg'), map.jpg).should.be.true;
+    Whether.identify(path.join(imagePath, 'sample.jpg'), map.jpg).should.be.true;
   });
 
 });
@@ -39,7 +39,7 @@ describe('test whether instance', function () {
   var whether = Whether.create();
 
   it('is png', function (done) {
-    whether.is(path.join(imagePath, 'sample.png'), 'png', function (e, result) {
+    whether(path.join(imagePath, 'sample.png')).is('png', function (e, result) {
       should.not.exist(e);
       should(result).be.true;
       done();
@@ -47,7 +47,7 @@ describe('test whether instance', function () {
   });
 
   it('is jpg', function (done) {
-    whether.is(path.join(imagePath, 'sample.jpg'), 'jpg', function (e, result) {
+    whether(path.join(imagePath, 'sample.jpg')).is('jpg', function (e, result) {
       should.not.exist(e);
       should(result).be.true;
       done();
@@ -55,15 +55,15 @@ describe('test whether instance', function () {
   });
 
   it('is png in sync', function () {
-    whether.is(path.join(imagePath, 'sample.png'), 'png').should.be.true;
+    whether(path.join(imagePath, 'sample.png')).is('png').should.be.true;
   });
 
   it('is jpg in sync', function () {
-    whether.is(path.join(imagePath, 'sample.jpg'), 'jpg').should.be.true;
+    whether(path.join(imagePath, 'sample.jpg')).is('jpg').should.be.true;
   });  
 
   it('isMatched', function (done) {
-    whether.isMatched(path.join(imagePath, 'sample.png'), function (e, result) {
+    whether(path.join(imagePath, 'sample.png')).isMatched(function (e, result) {
       should.not.exist(e);
       should(result).be.true;
       done();
@@ -71,22 +71,8 @@ describe('test whether instance', function () {
   });
 
   it('isMatched in sync', function () {
-    whether.isMatched(path.join(imagePath, 'sample.jpg')).should.be.true;
-    whether.isIdentical(path.join(imagePath, 'sample.png')).should.be.true;
+    whether(path.join(imagePath, 'sample.jpg')).isMatched().should.be.true;
+    whether(path.join(imagePath, 'sample.png')).isIdentical().should.be.true;
   });
-
-
-  it('isType', function (done) {
-    whether.isType(path.join(imagePath, 'sample.png'), 'image', function (e, result) {
-      should.not.exist(e);
-      should(result).be.true;
-      done();
-    });
-  });
-
-  it('isType in sync', function () {
-    whether.isType(path.join(imagePath, 'sample.jpg'), 'image').should.be.true;
-  });
-
 
 });

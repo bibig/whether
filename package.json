@@ -1,6 +1,6 @@
 {
   "name": "whether",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "identify file type by file magic numbers.",
   "main": "index.js",
   "scripts": {

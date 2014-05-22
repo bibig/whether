@@ -5,8 +5,8 @@
 module.exports = {
   
   // will add to Whether.prototype
-  types: {
-    image: ['jpg', 'png', 'gif', 'bmp']
+  defs: {
+    isImage: ['jpg', 'png', 'gif', 'bmp']
   },
 
   exts: {
