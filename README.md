@@ -67,7 +67,7 @@ you can define your map.
     }
   });
 
-  // then use these defines.
+  // then use these definitions.
   whether('path/to/image').is('ext1');
   whether('path/to/image.ext2').isMatched();
 
@@ -75,15 +75,20 @@ you can define your map.
 
 ## define file type check methods
 
-sometimes, we want to check a file is some kind of type. 
-eg: whether a file is an image.  an image file may have different ext.
+sometimes, we want to check a file is some kind of file. 
+
+eg: whether a file is an image. 
+
+define a check method, use an array to tell which exts are included.
 
 ```javascript
   
   // define in config.
   var whether = require('whether')({
     defs: {
-      isImage: ['png', 'gif', 'jpg', 'bmp']
+      isImage: ['png', 'gif', 'jpg', 'bmp'],
+      isMS: ['doc', 'ppt', 'xls'],
+      ...
     },
     exts: {...}
   });
