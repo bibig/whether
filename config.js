@@ -6,11 +6,12 @@ module.exports = {
   
   // will add to Whether.prototype
   defs: {
-    isImage: ['jpg', 'png', 'gif', 'bmp']
+    isImage: ['jpg', 'jpeg', 'png', 'gif', 'bmp']
   },
 
   exts: {
     'jpg'  : 'FF D8 FF',
+    'jpeg'  : 'FF D8 FF',
     'png'  : '89 50 4E 47',
     'gif'  : '47 49 46 38',
     'bmp'  : '42 4D',
